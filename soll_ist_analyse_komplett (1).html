@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soll-Ist-Analyse für Fachinformatiker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+        
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slide {
+            display: none;
+            background: white;
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 60px 80px;
+            position: relative;
+            animation: slideIn 0.5s ease;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 20px;
+        }
+        
+        h2 {
+            color: #764ba2;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 1.3em;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .content li {
+            margin: 15px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .content li:before {
+            content: "▸";
+            color: #667eea;
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+        }
+        
+        .content strong {
+            color: #764ba2;
+            font-weight: 600;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 2px solid #667eea;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9ff;
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(118, 75, 162, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #ffd89b 0%, #19547b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+        
+        .highlight-text {
+            font-size: 1.5em;
+            margin-top: 40px;
+        }
+        
+        .info-box {
+            background: #f0f4ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Folie 1 -->
+        <div class="slide active">
+            <h1>Die Soll-Ist-Analyse in der IT</h1>
+            <div class="content">
+                <h2>Von den Anfängen bis zur modernen Praxis</h2>
+                <p class="highlight-text">Ein unverzichtbares Werkzeug für Fachinformatiker</p>
+                <p style="margin-top: 80px; font-size: 1.2em; color: #666;">
+                    Eine Präsentation über Planung, Realität und den Weg dazwischen
+                </p>
+            </div>
+            <div class="slide-number">1 / 20</div>
+        </div>
+        
+        <!-- Folie 2 -->
+        <div class="slide">
+            <h1>Was ist eine Soll-Ist-Analyse?</h1>
+            <div class="content">
+                <p style="font-size: 1.4em; margin-bottom: 40px;">Die Soll-Ist-Analyse ist ein Vergleich zwischen zwei Zuständen:</p>
+                <ul>
+                    <li><strong>SOLL:</strong> Was wollen wir erreichen? (Zielzustand)</li>
+                    <li><strong>IST:</strong> Wo stehen wir aktuell? (Aktueller Zustand)</li>
+                    <li><strong>GAP:</strong> Die Lücke dazwischen zeigt, wo Handlungsbedarf besteht</li>
+                </ul>
+                <p style="margin-top: 60px; font-size: 1.5em; text-align: center; color: #667eea;">
+                    <strong>"Wo wollen wir hin und wo stehen wir gerade?"</strong>
+                </p>
+            </div>
+            <div class="slide-number">2 / 20</div>
+        </div>
+        
+        <!-- Folie 3 -->
+        <div class="slide">
+            <h1>Warum ist das für euch wichtig?</h1>
+            <div class="content">
+                <p style="margin-bottom: 30px;">Als Fachinformatiker werdet ihr ständig mit Soll-Ist-Analysen arbeiten:</p>
+                <ul>
+                    <li>Bei der Einführung neuer Software-Systeme</li>
+                    <li>Beim Troubleshooting von IT-Problemen</li>
+                    <li>Bei der Optimierung von Prozessen</li>
+                    <li>Im Projektmanagement und bei Systemmigrationen</li>
+                </ul>
+                <p style="margin-top: 60px; font-size: 1.4em; text-align: center; background: #f0f4ff; padding: 30px; border-radius: 15px;">
+                    <span class="emoji">🔧</span><strong>Es ist eines eurer wichtigsten Werkzeuge!</strong>
+                </p>
+            </div>
+            <div class="slide-number">3 / 20</div>
+        </div>
+        
+        <!-- Folie 4 -->
+        <div class="slide">
+            <h1>Historische Wurzeln</h1>
+            <div class="content">
+                <p style="margin-bottom: 30px;"><strong>Frederick W. Taylor (1856-1915)</strong> und <strong>Henri Fayol (1841-1925)</strong> legten den Grundstein:</p>
+                <ul>
+                    <li><strong>Taylor:</strong> Analysierte IST-Zustände durch Messung von Arbeitsprozessen</li>
+                    <li><strong>Fayol:</strong> Definierte SOLL-Ziele und die Kontrolle als Managementaufgabe</li>
+                </ul>
+                <p style="margin-top: 60px; background: #fff3e0; padding: 25px; border-radius: 10px; border-left: 5px solid #ff9800;">
+                    <span class="emoji">💡</span>Ihre Ideen aus der Industrie sind heute Standard in der IT - nur die Werkzeuge wurden digital!
+                </p>
+            </div>
+            <div class="slide-number">4 / 20</div>
+        </div>
+        
+        <!-- Folie 5 -->
+        <div class="slide">
+            <h1>Die 4 Schritte der Soll-Ist-Analyse</h1>
+            <div class="content">
+                <ul style="font-size: 1.4em;">
+                    <li><strong>Schritt 1:</strong> SOLL-Zustand definieren<br><span style="font-size: 0.8em; color: #666;">Was sind unsere Ziele?</span></li>
+                    <li><strong>Schritt 2:</strong> IST-Zustand erfassen<br><span style="font-size: 0.8em; color: #666;">Wie ist die aktuelle Situation?</span></li>
+                    <li><strong>Schritt 3:</strong> Abweichungen identifizieren<br><span style="font-size: 0.8em; color: #666;">Wo liegen die Lücken (GAPs)?</span></li>
+                    <li><strong>Schritt 4:</strong> Maßnahmen ableiten<br><span style="font-size: 0.8em; color: #666;">Was müssen wir tun?</span></li>
+                </ul>
+            </div>
+            <div class="slide-number">5 / 20</div>
+        </div>
+        
+        <!-- Folie 6 -->
+        <div class="slide">
+            <h1>Schritt 1 - SOLL definieren</h1>
+            <div class="content">
+                <p style="margin-bottom: 30px;">Konkrete und messbare Ziele festlegen:</p>
+                <ul>
+                    <li>Helpdesk: "80% aller Tickets in unter 2 Stunden lösen"</li>
+                    <li>Server: "Systemverfügbarkeit von 99,5%"</li>
+                    <li>Projekt: "Website-Ladezeit unter 2 Sekunden"</li>
+                </ul>
+                <div style="margin-top: 50px; background: #e8f5e9; padding: 25px; border-radius: 10px;">
+                    <strong>Wichtig:</strong> SOLL-Werte müssen <strong>SMART</strong> sein
+                    <p style="margin-top: 15px; font-size: 0.9em;">(<strong>S</strong>pezifisch, <strong>M</strong>essbar, <strong>A</strong>kzeptiert, <strong>R</strong>ealistisch, <strong>T</strong>erminiert)</p>
+                </div>
+            </div>
+            <div class="slide-number">6 / 20</div>
+        </div>
+        
+        <!-- Folie 7 -->
+        <div class="slide">
+            <h1>Schritt 2 - IST erfassen</h1>
+            <div class="content">
+                <p style="margin-bottom: 30px;">Die Realität objektiv dokumentieren:</p>
+                <ul>
+                    <li>Aktuelle Bearbeitungszeit: 3,5 Stunden</li>
+                    <li>Lösungsquote: 65%</li>
+                    <li>Häufigste Probleme: Passwort-Resets (40%)</li>
+                </ul>
+                <div style="margin-top: 50px; background: #fff3e0; padding: 25px; border-radius: 10px;">
+                    <strong><span class="emoji">🔍</span>Werkzeuge:</strong> Ticket-Systeme, Monitoring-Tools, Logfiles
+                </div>
+            </div>
+            <div class="slide-number">7 / 20</div>
+        </div>
+        
+        <!-- Folie 8 -->
+        <div class="slide">
+            <h1>Schritt 3 - GAP-Analyse</h1>
+            <div class="content">
+                <p style="margin-bottom: 30px;">Der Vergleich zeigt die Lücken:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kriterium</th>
+                            <th>SOLL</th>
+                            <th>IST</th>
+                            <th>Abweichung</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bearbeitungszeit</td>
+                            <td>2h</td>
+                            <td>3,5h</td>
+                            <td style="color: #d32f2f; font-weight: 600;">+1,5h</td>
+                        </tr>
+                        <tr>
+                            <td>Lösungsquote</td>
+                            <td>80%</td>
+                            <td>65%</td>
+                            <td style="color: #d32f2f; font-weight: 600;">-15%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 30px; font-size: 1.3em; text-align: center;">
+                    <strong>Jetzt wissen wir, <span style="color: #667eea;">wo</span> Probleme bestehen!</strong>
+                </p>
+            </div>
+            <div class="slide-number">8 / 20</div>
+        </div>
+        
+        <!-- Folie 9 -->
+        <div class="slide">
+            <h1>Schritt 4 - Maßnahmen entwickeln</h1>
+            <div class="content">
+                <p style="margin-bottom: 30px;">Aus der Gap-Analyse konkrete Schritte ableiten:</p>
+                <div style="margin-bottom: 30px; background: #ffebee; padding: 20px; border-radius: 10px;">
+                    <strong>Problem:</strong> Lange Bearbeitungszeiten<br>
+                    <strong>Ursache:</strong> Fehlende Wissensdatenbank<br>
+                    <strong>Maßnahme:</strong> FAQ-Datenbank aufbauen
+                </div>
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 10px;">
+                    <strong>Problem:</strong> Niedrige Lösungsquote<br>
+                    <strong>Ursache:</strong> Komplexe Probleme werden zu spät eskaliert<br>
+                    <strong>Maßnahme:</strong> Klare Eskalationswege, Schulungen
+                </div>
+            </div>
+            <div class="slide-number">9 / 20</div>
+        </div>
+        
+        <!-- Folie 10 -->
+        <div class="slide">
+            <h1>Praxisbeispiel 1: Software-Migration</h1>
+            <div class="content">
+                <p style="margin-bottom: 20px;"><strong>Szenario:</strong> Umstellung auf neue Cloud-CRM-Lösung</p>
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <strong>SOLL:</strong> Alle Kundendaten übernommen, Mitarbeiter geschult, keine Ausfallzeiten
+                </div>
+                <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <strong>IST-Aufnahme:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>15.000 Datensätze, davon 20% unvollständig</li>
+                        <li>Nur 3 von 25 Mitarbeitern kennen das neue System</li>
+                    </ul>
+                </div>
+                <div style="background: #ffebee; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                    <strong>GAP:</strong> Große Datenbereinigungs- und Schulungsbedarfe!
+                </div>
+                <p style="margin-top: 20px;"><strong>Maßnahmen:</strong> Datenbereinigung vor Migration, mehrstufiges Schulungskonzept</p>
+            </div>
+            <div class="slide-number">10 / 20</div>
+        </div>
+        
+        <!-- Folie 11 -->
+        <div class="slide">
+            <h1>Praxisbeispiel 2: Agile Entwicklung</h1>
+            <div class="content">
+                <h2 style="font-size: 1.5em; margin-bottom: 20px;">Scrum Sprint</h2>
+                <ul>
+                    <li><strong>Sprint Planning (SOLL):</strong> 5 User Stories, 40 Story Points in 2 Wochen</li>
+                    <li><strong>Daily Standup (IST tracken):</strong> Nach 5 Tagen noch 32 Points offen, API-Blockade erkannt</li>
+                    <li><strong>Sprint Review (GAP):</strong> Nur 3 von 5 Stories fertig, Testabdeckung 75% statt 90%</li>
+                    <li><strong>Retrospektive (Maßnahmen):</strong> Realistischere Schätzungen, mehr Testzeit einplanen</li>
+                </ul>
+                <p style="margin-top: 40px; background: #e8f5e9; padding: 20px; border-radius: 10px; text-align: center;">
+                    <span class="emoji">🔄</span><strong>Die Soll-Ist-Analyse ist fest in Scrum integriert!</strong>
+                </p>
+            </div>
+            <div class="slide-number">11 / 20</div>
+        </div>
+        
+        <!-- Folie 12 -->
+        <div class="slide">
+            <h1>Praxisbeispiel 3: Server-Monitoring</h1>
+            <div class="content">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Metrik</th>
+                            <th>SOLL</th>
+                            <th>IST</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CPU-Auslastung</td>
+                            <td>unter 70%</td>
+                            <td style="color: #d32f2f; font-weight: 600;">85%</td>
+                            <td>❌ Kritisch</td>
+                        </tr>
+                        <tr>
+                            <td>Response-Time</td>
+                            <td>unter 200ms</td>
+                            <td style="color: #d32f2f; font-weight: 600;">450ms</td>
+                            <td>❌ Problem</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 30px; background: #ffebee; padding: 20px; border-radius: 10px;">
+                    <strong>GAP:</strong> Server überlastet, Bottleneck identifiziert
+                </div>
+                <div style="margin-top: 20px; background: #e3f2fd; padding: 20px; border-radius: 10px;">
+                    <strong>Maßnahme:</strong> Hardware-Upgrade oder Load Balancing
+                </div>
+                <p style="margin-top: 30px; text-align: center; font-size: 1.2em;">
+                    <span class="emoji">⚡</span>Hier läuft die Soll-Ist-Analyse automatisiert in Echtzeit!
+                </p>
+            </div>
+            <div class="slide-number">12 / 20</div>
+        </div>
+        
+        <!-- Folie 13 -->
+        <div class="slide">
+            <h1>Wichtige Tools für euch</h1>
+            <div class="content">
+                <div style="margin-bottom: 30px;">
+                    <strong style="font-size: 1.3em; color: #667eea;">Projektmanagement:</strong>
+                    <p style="margin-left: 20px; margin-top: 10px;">Jira, Azure DevOps, Excel</p>
+                </div>
+                <div style="margin-bottom: 30px;">
+                    <strong style="font-size: 1.3em; color: #667eea;">IT-Monitoring:</strong>
+                    <p style="margin-left: 20px; margin-top: 10px;">Prometheus + Grafana, Nagios</p>
+                </div>
+                <div style="margin-bottom: 30px;">
+                    <strong style="font-size: 1.3em; color: #667eea;">Code-Qualität:</strong>
+                    <p style="margin-left: 20px; margin-top: 10px;">SonarQube</p>
+                </div>
+                <div style="margin-bottom: 30px;">
+                    <strong style="font-size: 1.3em; color: #667eea;">Dokumentation:</strong>
+                    <p style="margin-left: 20px; margin-top: 10px;">Confluence, Notion</p>
+                </div>
+                <p style="margin-top: 50px; background: #f0f4ff; padding: 25px; border-radius: 10px; text-align: center; font-size: 1.2em;">
+                    <strong>Diese Tools werdet ihr in der Praxis täglich nutzen!</strong>
+                </p>
+            </div>
+            <div class="slide-number">13 / 20</div>
+        </div>
+        
+        <!-- Folie 14 -->
+        <div class="slide">
+            <h1>Vorteile der Soll-Ist-Analyse</h1>
+            <div class="content">
+                <ul style="font-size: 1.3em;">
+                    <li><span class="emoji">✅</span><strong>Transparenz:</strong> Jeder weiß, wo das Projekt steht</li>
+                    <li><span class="emoji">✅</span><strong>Früherkennung:</strong> Probleme werden sichtbar, bevor es zu spät ist</li>
+                    <li><span class="emoji">✅</span><strong>Objektivität:</strong> Datenbasierte Entscheidungen statt Bauchgefühl</li>
+                    <li><span class="emoji">✅</span><strong>Kommunikation:</strong> Gemeinsame Grundlage für Gespräche</li>
+                </ul>
+                <p style="margin-top: 60px; font-size: 1.5em; text-align: center; color: #667eea;">
+                    <strong>Ihr werdet zu besseren IT-Profis!</strong>
+                </p>
+            </div>
+            <div class="slide-number">14 / 20</div>
+        </div>
+        
+        <!-- Folie 15 -->
+        <div class="slide">
+            <h1>Häufige Fehler vermeiden</h1>
+            <div class="content">
+                <div style="margin-bottom: 25px; background: #ffebee; padding: 20px; border-radius: 10px;">
+                    <strong>❌ Fehler 1:</strong> Unrealistische SOLL-Werte<br>
+                    <strong style="color: #4caf50;">→</strong> Mit erfahrenen Kollegen abstimmen
+                </div>
+                <div style="margin-bottom: 25px; background: #ffebee; padding: 20px; border-radius: 10px;">
+                    <strong>❌ Fehler 2:</strong> IST-Daten schönreden<br>
+                    <strong style="color: #4caf50;">→</strong> Objektive Messungen nutzen
+                </div>
+                <div style="margin-bottom: 25px; background: #ffebee; padding: 20px; border-radius: 10px;">
+                    <strong>❌ Fehler 3:</strong> Nur analysieren, nicht handeln<br>
+                    <strong style="color: #4caf50;">→</strong> Konkrete Maßnahmen mit Deadlines
+                </div>
+                <div style="background: #ffebee; padding: 20px; border-radius: 10px;">
+                    <strong>❌ Fehler 4:</strong> Einmalige Analyse<br>
+                    <strong style="color: #4caf50;">→</strong> Regelmäßige Reviews einplanen
+                </div>
+            </div>
+            <div class="slide-number">15 / 20</div>
+        </div>
+        
+        <!-- Folie 16 -->
+        <div class="slide">
+            <h1>Moderne Entwicklungen</h1>
+            <div class="content">
+                <h2 style="font-size: 1.5em; margin-bottom: 20px;">KI und Automatisierung</h2>
+                <ul style="margin-bottom: 40px;">
+                    <li>Process Mining: Automatische IST-Erfassung</li>
+                    <li>Predictive Analytics: Probleme vorhersagen</li>
+                    <li>Echtzeit-Dashboards</li>
+                </ul>
+                <h2 style="font-size: 1.5em; margin-bottom: 20px;">Agile Methoden</h2>
+                <ul>
+                    <li>Soll-Ist-Analyse in jeden Sprint integriert</li>
+                    <li>Kontinuierliche Verbesserung</li>
+                </ul>
+                <p style="margin-top: 50px; background: #e8f5e9; padding: 25px; border-radius: 10px; text-align: center; font-size: 1.2em;">
+                    <span class="emoji">🤖</span><strong>Die Zukunft ist datengetrieben - aber der Mensch interpretiert!</strong>
+                </p>
+            </div>
+            <div class="slide-number">16 / 20</div>
+        </div>
+        
+        <!-- Folie 17 -->
+        <div class="slide">
+            <h1>Was das für eure Karriere bedeutet</h1>
+            <div class="content">
+                <div style="margin-bottom: 40px;">
+                    <h2 style="font-size: 1.4em; color: #667eea; margin-bottom: 15px;">In der Ausbildung:</h2>
+                    <ul>
+                        <li>Systeme analysieren und dokumentieren</li>
+                        <li>Anforderungen verstehen und umsetzen</li>
+                        <li>Probleme erkennen und Lösungen entwickeln</li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 style="font-size: 1.4em; color: #764ba2; margin-bottom: 15px;">Im Berufsleben:</h2>
+                    <ul>
+                        <li>Gefragte Problemlöser sein</li>
+                        <li>Projekte steuern und optimieren</li>
+                        <li>Sprache von Management UND Technik sprechen</li>
+                    </ul>
+                </div>
+                <p style="margin-top: 50px; background: #fff3e0; padding: 25px; border-radius: 10px; text-align: center; font-size: 1.3em;">
+                    <strong>Die Soll-Ist-Analyse ist eine Kernkompetenz für jeden Fachinformatiker!</strong>
+                </p>
+            </div>
+            <div class="slide-number">17 / 20</div>
+        </div>
+        
+        <!-- Folie 18 -->
+        <div class="slide">
+            <h1>Zusammenfassung</h1>
+            <div class="content">
+                <h2 style="margin-bottom: 30px;">Die wichtigsten Punkte</h2>
+                <ul style="font-size: 1.3em;">
+                    <li>✓ Wurzeln bei Taylor & Fayol (Effizienz + Kontrolle)</li>
+                    <li>✓ 4 klare Schritte: SOLL definieren → IST erfassen → GAPs finden → Maßnahmen ableiten</li>
+                    <li>✓ Unverzichtbar in IT-Projekten, Monitoring, agiler Entwicklung</li>
+                    <li>✓ Von manueller Analyse zu automatisierten Echtzeit-Systemen</li>
+                </ul>
+            </div>
+            <div class="slide-number">18 / 20</div>
+        </div>
+        
+        <!-- Folie 19 -->
+        <div class="slide">
+            <h1>Der wichtigste Merksatz</h1>
+            <div class="content">
+                <p style="font-size: 2em; text-align: center; color: #667eea; margin: 50px 0; line-height: 1.5;">
+                    <strong>"Wer nicht weiß, wo er steht,<br>kann nicht wissen,<br>wohin er gehen soll."</strong>
+                </p>
+                <div style="background: #f0f4ff; padding: 30px; border-radius: 15px; margin-top: 50px;">
+                    <p style="font-size: 1.2em;">
+                        <strong>Die Soll-Ist-Analyse gibt euch Orientierung und Klarheit!</strong>
+                    </p>
+                </div>
+            </div>
+            <div class="slide-number">19 / 20</div>
+        </div>
+        
+        <!-- Folie 20 -->
+        <div class="slide">
+            <h1>Vielen Dank für eure Aufmerksamkeit!</h1>
+            <div class="content">
+                <p style="font-size: 1.5em; text-align: center; margin-top: 50px;">
+                    <strong>Fragen?</strong>
+                </p>
+                <p style="margin-top: 50px; font-size: 1.2em; text-align: center;">
+                    <span class="emoji">📧</span>Kontakt: <a href="mailto:beispiel@email.de" style="color: #667eea;">beispiel@email.de</a>
+                </p>
+            </div>
+            <div class="slide-number">20 / 20</div>
+        </div>
+    </div>
+    
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevButton = document.createElement('button');
+        const nextButton = document.createElement('button');
+        const controls = document.createElement('div');
+        
+        // Buttons erstellen
+        prevButton.textContent = 'Zurück';
+        prevButton.setAttribute('aria-label', 'Zur vorherigen Folie');
+        nextButton.textContent = 'Weiter';
+        nextButton.setAttribute('aria-label', 'Zur nächsten Folie');
+        
+        controls.className = 'controls';
+        controls.appendChild(prevButton);
+        controls.appendChild(nextButton);
+        document.body.appendChild(controls);
+        
+        // Aktuellen Slide-Index
+        let currentSlide = 0;
+        
+        // Slides verwalten
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+            updateButtons();
+        }
+        
+        // Buttons aktualisieren
+        function updateButtons() {
+            prevButton.disabled = currentSlide === 0;
+            nextButton.disabled = currentSlide === slides.length - 1;
+        }
+        
+        // Event-Listener
+        prevButton.addEventListener('click', () => {
+            if (currentSlide > 0) showSlide(currentSlide - 1);
+        });
+        
+        nextButton.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+        });
+        
+        // Tastatursteuerung
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 0) showSlide(currentSlide - 1);
+            if (e.key === 'ArrowRight' && currentSlide < slides.length - 1) showSlide(currentSlide + 1);
+        });
+        
+        // Initialisierung
+        showSlide(0);
+    </script>
+</body>
+</html>
